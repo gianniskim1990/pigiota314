@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pigiota314 Agency | Dark UX/UI Redesign Concept</title>
+  <meta name="description" content="Dark mode UX/UI redesign concept για τη σελίδα της Pigiota314 Agency με premium agency αισθητική, animations, services, SaaS products, EU projects και portfolio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-soft: #0b0d14;
+      --surface: rgba(255, 255, 255, 0.055);
+      --surface-strong: rgba(255, 255, 255, 0.095);
+      --text: #f7f8fc;
+      --muted: #a7adbb;
+      --muted-2: #767d8d;
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(255, 255, 255, 0.2);
+      --accent: #9dff6d;
+      --accent-2: #6df8ff;
+      --accent-3: #b36dff;
+      --warning: #ffd66d;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1180px;
+      --ease: cubic-bezier(.2,.75,.25,1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 14% 10%, rgba(109, 248, 255, 0.15), transparent 28%),
+        radial-gradient(circle at 78% 9%, rgba(179, 109, 255, 0.17), transparent 30%),
+        radial-gradient(circle at 50% 85%, rgba(157, 255, 109, 0.10), transparent 34%),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.032) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.65), transparent 78%);
+      z-index: -3;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(5,6,10,0.05), #05060a 92%);
+      z-index: -2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ::selection {
+      background: rgba(157,255,109,0.28);
+      color: var(--text);
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(109, 248, 255, 0.72);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: 16px;
+      z-index: 999;
+      transform: translateY(-140%);
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #05060a;
+      font-weight: 900;
+      transition: transform .25s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .progress-bar {
+      position: fixed;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 3px;
+      z-index: 100;
+      transform-origin: left center;
+      transform: scaleX(0);
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .18;
+      background: radial-gradient(circle, rgba(109,248,255,0.45), transparent 68%);
+      transform: translate3d(-50%, -50%, 0);
+      filter: blur(10px);
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(22px);
+      background: rgba(5, 6, 10, 0.72);
+      border-bottom: 1px solid var(--line);
+      transition: background .25s ease, min-height .25s ease, box-shadow .25s ease;
+    }
+
+    .nav.is-scrolled {
+      background: rgba(5, 6, 10, 0.9);
+      box-shadow: 0 18px 60px rgba(0,0,0,.28);
+    }
+
+    .nav-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: 1.12rem;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: #05060a;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 42px rgba(109, 248, 255, 0.28);
+      font-weight: 900;
+      animation: logoPulse 3.5s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { transform: translateY(0) rotate(0deg); box-shadow: 0 0 42px rgba(109, 248, 255, 0.26); }
+      50% { transform: translateY(-2px) rotate(-3deg); box-shadow: 0 0 60px rgba(157, 255, 109, 0.30); }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 10px 13px;
+      border-radius: 999px;
+      transition: color .25s ease, background .25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.is-active {
+      color: var(--text);
+      background: rgba(255,255,255,0.09);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-cta,
+    .menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid rgba(157, 255, 109, 0.35);
+      border-radius: 999px;
+      background: rgba(157, 255, 109, 0.10);
+      color: var(--accent);
+      font-weight: 800;
+      transition: transform .25s var(--ease), background .25s ease, border-color .25s ease;
+    }
+
+    .nav-cta:hover,
+    .menu-toggle:hover {
+      transform: translateY(-2px);
+      background: rgba(157, 255, 109, 0.16);
+      border-color: rgba(157, 255, 109, 0.55);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .menu-toggle span,
+    .menu-toggle span::before,
+    .menu-toggle span::after {
+      display: block;
+      width: 17px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--accent);
+      content: "";
+      transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .menu-toggle span::before { transform: translateY(-6px); }
+    .menu-toggle span::after { transform: translateY(4px); }
+
+    .menu-toggle.is-open span { transform: rotate(45deg); }
+    .menu-toggle.is-open span::before { opacity: 0; }
+    .menu-toggle.is-open span::after { transform: translateY(-2px) rotate(-90deg); }
+
+    .hero {
+      position: relative;
+      padding: 92px 0 68px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(330px, 0.96fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 22px var(--accent);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .55; transform: scale(.8); }
+    }
+
+    h1, h2, h3 {
+      font-family: "Space Grotesk", Inter, sans-serif;
+      letter-spacing: -0.06em;
+      line-height: 0.98;
+    }
+
+    h1 {
+      max-width: 870px;
+      font-size: clamp(3.05rem, 7vw, 7.2rem);
+      font-weight: 800;
+      margin-bottom: 26px;
+    }
+
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(90deg, #fff, var(--accent-2), var(--accent), #fff);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: gradientShift 7s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      line-height: 1.78;
+      margin-bottom: 32px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-weight: 900;
+      transition: transform .25s var(--ease), border-color .25s ease, background .25s ease, box-shadow .25s ease;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      transform: translateX(-130%);
+      transition: transform .6s ease;
+    }
+
+    .btn:hover::after {
+      transform: translateX(130%);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #05060a;
+      box-shadow: 0 18px 50px rgba(109, 248, 255, 0.16);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.24);
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .trust-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .trust-item::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .hero-card {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 42px;
+      min-height: 590px;
+      padding: 22px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.035)),
+        rgba(255,255,255,0.04);
+      box-shadow: var(--shadow);
+      transform-style: preserve-3d;
+      transition: transform .35s var(--ease), border-color .3s ease;
+    }
+
+    .hero-card:hover {
+      border-color: rgba(109,248,255,0.28);
+    }
+
+    .hero-orb,
+    .hero-orb-small {
+      position: absolute;
+      border-radius: 999px;
+      opacity: .92;
+      filter: blur(.5px);
+      will-change: transform;
+    }
+
+    .hero-orb {
+      width: 230px;
+      height: 230px;
+      right: 36px;
+      top: 54px;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent-2) 22%, #111 58%, #000 70%);
+      box-shadow: 0 0 90px rgba(109, 248, 255, 0.26);
+      animation: floatOrb 7s ease-in-out infinite;
+    }
+
+    .hero-orb-small {
+      width: 300px;
+      height: 300px;
+      left: -78px;
+      bottom: -55px;
+      background: radial-gradient(circle at 28% 28%, #fff, var(--accent) 18%, #151515 55%, #000 72%);
+      box-shadow: 0 0 110px rgba(157, 255, 109, 0.22);
+      animation: floatOrb 9s ease-in-out infinite reverse;
+    }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translate3d(0,0,0) scale(1); }
+      50% { transform: translate3d(0,-16px,0) scale(1.03); }
+    }
+
+    .dashboard-mockup {
+      position: relative;
+      z-index: 2;
+      margin-top: 170px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 28px;
+      padding: 14px;
+      background: rgba(5,6,10,0.72);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 26px 70px rgba(0,0,0,0.34);
+      transform: translateZ(30px);
+    }
+
+    .mockup-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding: 2px 4px 0;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 800;
+    }
+
+    .mockup-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mockup-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.22);
+    }
+
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.055);
+      padding: 17px;
+      min-height: 138px;
+      transition: transform .25s var(--ease), background .25s ease, border-color .25s ease;
+    }
+
+    .mini-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(157,255,109,.3);
+      background: rgba(255,255,255,.085);
+    }
+
+    .mini-card.wide {
+      grid-column: 1 / -1;
+      min-height: 150px;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 9px;
+    }
+
+    .mini-card span {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(1.22rem, 2.2vw, 1.68rem);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+    }
+
+    .progress-stack {
+      display: grid;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .progress-line {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+
+    .progress-line span {
+      display: block;
+      width: var(--w);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      animation: fillBar 1.4s var(--ease) both;
+      animation-delay: .35s;
+    }
+
+    @keyframes fillBar {
+      from { width: 0; }
+      to { width: var(--w); }
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 44px;
+    }
+
+    .stat {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255,255,255,0.038);
+      transition: transform .25s var(--ease), border-color .25s ease, background .25s ease;
+    }
+
+    .stat:hover {
+      transform: translateY(-5px);
+      border-color: rgba(109,248,255,.24);
+      background: rgba(255,255,255,.06);
+    }
+
+    .stat b {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.06em;
+      margin-bottom: 6px;
+    }
+
+    .stat small {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .marquee-wrap {
+      border-block: 1px solid var(--line);
+      background: rgba(255,255,255,0.035);
+      overflow: hidden;
+      margin: 18px 0 0;
+    }
+
+    .marquee {
+      display: flex;
+      gap: 34px;
+      width: max-content;
+      padding: 18px 0;
+      color: var(--muted);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      animation: move 28s linear infinite;
+    }
+
+    .marquee-wrap:hover .marquee {
+      animation-play-state: paused;
+    }
+
+    @keyframes move {
+      to { transform: translateX(-50%); }
+    }
+
+    section {
+      padding: 92px 0;
+      scroll-margin-top: 90px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.55fr);
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: currentColor;
+      opacity: .75;
+    }
+
+    h2 {
+      font-size: clamp(2.35rem, 5vw, 5.15rem);
+      font-weight: 800;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .interactive-card {
+      --mx: 50%;
+      --my: 50%;
+    }
+
+    .interactive-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      background: radial-gradient(circle at var(--mx) var(--my), rgba(109,248,255,0.18), transparent 34%);
+      transition: opacity .25s ease;
+    }
+
+    .interactive-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-card {
+      position: relative;
+      min-height: 330px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      background: var(--surface);
+      overflow: hidden;
+      transition: transform .28s var(--ease), background .28s ease, border-color .28s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .service-card:hover {
+      transform: translateY(-7px);
+      background: var(--surface-strong);
+      border-color: rgba(157,255,109,0.35);
+    }
+
+    .service-number {
+      color: var(--muted-2);
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.055);
+      color: var(--accent-2);
+      font-size: 1.4rem;
+      margin-bottom: 44px;
+    }
+
+    .service-card h3 {
+      font-size: 1.48rem;
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      color: var(--accent);
+      font-weight: 900;
+      font-size: .9rem;
+    }
+
+    .card-link span {
+      transition: transform .2s ease;
+    }
+
+    .card-link:hover span {
+      transform: translateX(4px);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .dark-panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at top right, rgba(109,248,255,0.16), transparent 38%),
+        rgba(255,255,255,0.055);
+      padding: 34px;
+      min-height: 420px;
+      box-shadow: var(--shadow);
+    }
+
+    .dark-panel h3 {
+      font-size: clamp(2rem, 4vw, 3.55rem);
+      margin-bottom: 18px;
+    }
+
+    .dark-panel p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255,255,255,0.05);
+      font-size: 0.88rem;
+      font-weight: 800;
+      transition: transform .2s var(--ease), background .2s ease, color .2s ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-2px);
+      color: var(--text);
+      background: rgba(255,255,255,.085);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .product-card {
+      position: relative;
+      min-height: 430px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,0.055);
+      padding: 28px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .28s var(--ease), border-color .28s ease, background .28s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(179,109,255,.36);
+      background: rgba(255,255,255,.08);
+    }
+
+    .product-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(157,255,109,0.16), transparent 48%), radial-gradient(circle at 80% 18%, rgba(179,109,255,0.20), transparent 34%);
+      pointer-events: none;
+    }
+
+    .product-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-card h3 {
+      font-size: 2.3rem;
+      margin: 12px 0 14px;
+    }
+
+    .product-card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .product-features {
+      display: grid;
+      gap: 9px;
+      margin: 20px 0 26px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .product-features li {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .product-features li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .eu-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .check-list li {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      width: 23px;
+      height: 23px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(157,255,109,.13);
+      color: var(--accent);
+      font-weight: 900;
+      font-size: .8rem;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .project-card {
+      position: relative;
+      min-height: 360px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: #0d1019;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px;
+      isolation: isolate;
+      transition: transform .28s var(--ease), border-color .28s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      border-color: rgba(109,248,255,0.38);
+    }
+
+    .project-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(5,6,10,0.96), rgba(5,6,10,0.38), rgba(5,6,10,0.08)),
+        radial-gradient(circle at 30% 20%, rgba(109,248,255,0.22), transparent 34%),
+        radial-gradient(circle at 80% 42%, rgba(157,255,109,0.18), transparent 32%);
+      z-index: -2;
+      transition: transform .45s var(--ease), opacity .45s ease;
+    }
+
+    .project-card:hover::after {
+      transform: scale(1.08);
+      opacity: .9;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      z-index: -1;
+    }
+
+    .project-card .tag {
+      width: fit-content;
+      margin-bottom: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 0.75rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.55rem;
+      line-height: 1.08;
+      margin-bottom: 10px;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.93rem;
+      margin-bottom: 16px;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      counter-reset: process;
+    }
+
+    .process-step {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      background: rgba(255,255,255,0.055);
+      overflow: hidden;
+      transition: transform .28s var(--ease), background .28s ease, border-color .28s ease;
+    }
+
+    .process-step:hover {
+      transform: translateY(-7px);
+      border-color: rgba(157,255,109,.32);
+      background: rgba(255,255,255,.078);
+    }
+
+    .process-step b {
+      display: block;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 3.4rem;
+      letter-spacing: -0.07em;
+      margin-bottom: 32px;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.42);
+    }
+
+    .process-step h3 {
+      font-size: 1.45rem;
+      margin-bottom: 14px;
+    }
+
+    .process-step p {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .cta-section {
+      padding-top: 40px;
+    }
+
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      border-radius: 44px;
+      border: 1px solid rgba(157,255,109,0.28);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(157,255,109,0.24), transparent 32%),
+        radial-gradient(circle at 82% 20%, rgba(109,248,255,0.20), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      padding: clamp(34px, 6vw, 70px);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      right: -90px;
+      bottom: -100px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(179,109,255,.28), transparent 66%);
+      animation: floatOrb 8s ease-in-out infinite;
+    }
+
+    .cta-box h2 {
+      max-width: 850px;
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-box p,
+    .cta-box .actions,
+    .cta-box .kicker {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-box p {
+      max-width: 660px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 30px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 32px 0;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      transition: color .2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .mobile-sticky-cta {
+      display: none;
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      z-index: 45;
+      min-height: 54px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #05060a;
+      font-weight: 900;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 45px rgba(0,0,0,.36);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1000px) {
+      .hero-grid,
+      .section-head,
+      .split,
+      .eu-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .service-grid,
+      .project-grid,
+      .process {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-card {
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .nav-inner {
+        min-height: 70px;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 78px;
+        left: 20px;
+        right: 20px;
+        display: grid;
+        gap: 6px;
+        padding: 14px;
+        border-radius: 24px;
+        background: rgba(11, 13, 20, .96);
+        backdrop-filter: blur(22px);
+        transform: translateY(-14px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity .25s ease, transform .25s var(--ease), visibility .25s ease;
+      }
+
+      .nav-links.is-open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .nav-links a {
+        padding: 14px 16px;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(var(--max), calc(100% - 28px));
+      }
+
+      .hero {
+        padding-top: 58px;
+      }
+
+      .hero-grid,
+      .split,
+      .product-grid,
+      .service-grid,
+      .project-grid,
+      .process,
+      .stats,
+      .mockup-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 16vw, 4.6rem);
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .hero-card {
+        min-height: 470px;
+        border-radius: 30px;
+      }
+
+      .dashboard-mockup {
+        margin-top: 180px;
+      }
+
+      .mini-card.wide {
+        grid-column: auto;
+      }
+
+      .actions .btn {
+        width: 100%;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .mobile-sticky-cta {
+        display: inline-flex;
+      }
+
+      .footer {
+        padding-bottom: 84px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .cursor-glow {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Μετάβαση στο περιεχόμενο</a>
+  <div class="progress-bar" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="nav" data-nav>
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Pigiota314 Agency Home">
+        <span class="brand-mark">π</span>
+        <span>Pigiota314 Agency</span>
+      </a>
+
+      <nav class="nav-links" id="site-menu" aria-label="Primary navigation">
+        <a href="#services">Υπηρεσίες</a>
+        <a href="#products">Applications</a>
+        <a href="#eu-projects">EU Projects</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#process">Process</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-cta" href="#contact">Let’s talk</a>
+        <button class="menu-toggle" type="button" aria-label="Άνοιγμα μενού" aria-controls="site-menu" aria-expanded="false">
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow"><span class="dot"></span> Web Design • Digital Marketing • SaaS Products</div>
+          <h1>Digital presence with <span class="gradient-text">strategy, design & growth.</span></h1>
+          <p class="hero-copy">
+            Στη Pigiota314 σχεδιάζουμε ιστοσελίδες, e-shops, καμπάνιες digital marketing και custom web applications που βοηθούν επιχειρήσεις να ξεχωρίσουν online, να αποκτήσουν καλύτερη εικόνα και να μετατρέψουν την επισκεψιμότητα σε πραγματική ανάπτυξη.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contact">Ζήτησε πρόταση →</a>
+            <a class="btn btn-secondary" href="#portfolio">Δες έργα</a>
+          </div>
+
+          <div class="trust-row" aria-label="Trust points">
+            <span class="trust-item">SEO-ready websites</span>
+            <span class="trust-item">Responsive UX/UI</span>
+            <span class="trust-item">AI-assisted workflows</span>
+          </div>
+
+          <div class="stats" aria-label="Agency highlights">
+            <div class="stat reveal" style="--delay: 80ms">
+              <b data-count="10">0</b>
+              <small>χρόνια εμπειρίας σε web design & development</small>
+            </div>
+            <div class="stat reveal" style="--delay: 160ms">
+              <b>360°</b>
+              <small>υπηρεσίες: website, branding, SEO, social media</small>
+            </div>
+            <div class="stat reveal" style="--delay: 240ms">
+              <b>SaaS</b>
+              <small>έτοιμες web εφαρμογές για επιχειρήσεις υπηρεσιών</small>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card reveal" style="--delay: 160ms" aria-label="Visual brand concept" data-tilt>
+          <span class="hero-orb" aria-hidden="true"></span>
+          <span class="hero-orb-small" aria-hidden="true"></span>
+
+          <div class="dashboard-mockup">
+            <div class="mockup-top">
+              <span>Pigiota314 Growth OS</span>
+              <div class="mockup-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            </div>
+            <div class="mockup-grid">
+              <div class="mini-card">
+                <strong>Current focus</strong>
+                <span>Premium websites that work as business tools.</span>
+              </div>
+              <div class="mini-card">
+                <strong>Growth stack</strong>
+                <span>SEO • GEO • Ads • Analytics</span>
+              </div>
+              <div class="mini-card wide">
+                <strong>Performance pipeline</strong>
+                <span>Design → Launch → Measure → Grow</span>
+                <div class="progress-stack" aria-hidden="true">
+                  <div class="progress-line"><span style="--w: 86%"></span></div>
+                  <div class="progress-line"><span style="--w: 72%"></span></div>
+                  <div class="progress-line"><span style="--w: 94%"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee">
+        <span>Web Design</span><span>•</span><span>Digital Marketing</span><span>•</span><span>Social Media Management</span><span>•</span><span>Branding</span><span>•</span><span>SEO</span><span>•</span><span>Web Applications</span><span>•</span>
+        <span>Web Design</span><span>•</span><span>Digital Marketing</span><span>•</span><span>Social Media Management</span><span>•</span><span>Branding</span><span>•</span><span>SEO</span><span>•</span><span>Web Applications</span><span>•</span>
+      </div>
+    </div>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Core Services</span>
+            <h2>Όλα όσα χρειάζεται ένα brand για να μεγαλώσει online.</h2>
+          </div>
+          <p>
+            Η νέα αρχική πρέπει να δείχνει αμέσως ότι η Pigiota314 δεν είναι απλώς «κατασκευή ιστοσελίδων», αλλά ολοκληρωμένο digital partner: στρατηγική, design, performance και τεχνική υποστήριξη.
+          </p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card interactive-card reveal" style="--delay: 0ms">
+            <div>
+              <div class="service-number">01</div>
+              <div class="service-icon">⌘</div>
+              <h3>Web Design & Development</h3>
+              <p>Σύγχρονες ιστοσελίδες και e-shops με premium αισθητική, γρήγορη εμπειρία και σωστή δομή για SEO.</p>
+            </div>
+            <a class="card-link" href="#contact">Ξεκίνα website <span>→</span></a>
+          </article>
+          <article class="service-card interactive-card reveal" style="--delay: 90ms">
+            <div>
+              <div class="service-number">02</div>
+              <div class="service-icon">↗</div>
+              <h3>Digital Marketing</h3>
+              <p>Στρατηγικές SEO, Meta Ads, Google Ads, περιεχόμενο και analytics για αύξηση επισκεψιμότητας και πωλήσεων.</p>
+            </div>
+            <a class="card-link" href="#contact">Ζήτησε πλάνο <span>→</span></a>
+          </article>
+          <article class="service-card interactive-card reveal" style="--delay: 180ms">
+            <div>
+              <div class="service-number">03</div>
+              <div class="service-icon">✦</div>
+              <h3>Social Media Management</h3>
+              <p>Περιεχόμενο, δημιουργικά και καμπάνιες που χτίζουν κοινότητα, εμπιστοσύνη και σταθερή online παρουσία.</p>
+            </div>
+            <a class="card-link" href="#contact">Ανέβα επίπεδο <span>→</span></a>
+          </article>
+          <article class="service-card interactive-card reveal" style="--delay: 270ms">
+            <div>
+              <div class="service-number">04</div>
+              <div class="service-icon">◌</div>
+              <h3>Branding & Design</h3>
+              <p>Οπτική ταυτότητα, λογότυπα και γραφιστικά που κάνουν την επιχείρηση να φαίνεται πιο επαγγελματική και αναγνωρίσιμη.</p>
+            </div>
+            <a class="card-link" href="#contact">Χτίσε brand <span>→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="container split">
+        <div class="dark-panel interactive-card reveal">
+          <span class="kicker">Digital Products</span>
+          <h3>SaaS λύσεις που γίνονται προϊόντα.</h3>
+          <p>
+            Η αρχική πρέπει να αναδείξει ξεχωριστά ότι η Pigiota314 δημιουργεί και δικά της digital products. Αυτό διαφοροποιεί το agency από ένα απλό studio και δείχνει τεχνική ωριμότητα.
+          </p>
+          <div class="pill-list">
+            <span class="pill">Online ραντεβού</span>
+            <span class="pill">Dashboards</span>
+            <span class="pill">Client management</span>
+            <span class="pill">Responsive UI</span>
+            <span class="pill">Subscriptions</span>
+          </div>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card interactive-card reveal" style="--delay: 120ms">
+            <div>
+              <span class="pill">Για κομμωτήρια & αισθητική</span>
+              <h3>Saloon</h3>
+              <p>Σύστημα online ραντεβού και διαχείρισης πελατών για επιχειρήσεις ομορφιάς, με καθαρό πρόγραμμα και mobile-friendly εμπειρία.</p>
+              <ul class="product-features">
+                <li>Public booking page</li>
+                <li>Client dashboard</li>
+                <li>Plan-based features</li>
+              </ul>
+            </div>
+            <a class="btn btn-secondary" href="https://saloon.pigiota314.gr/">Δες demo</a>
+          </article>
+          <article class="product-card interactive-card reveal" style="--delay: 220ms">
+            <div>
+              <span class="pill">Για φυσικοθεραπευτές</span>
+              <h3>Physio</h3>
+              <p>Πλατφόρμα οργάνωσης ραντεβού και συνεδριών για φυσικοθεραπευτές που θέλουν καλύτερη οργάνωση και επαγγελματική online εικόνα.</p>
+              <ul class="product-features">
+                <li>Online appointments</li>
+                <li>Session management</li>
+                <li>Professional presentation</li>
+              </ul>
+            </div>
+            <a class="btn btn-secondary" href="https://physio.pigiota314.gr/">Δες demo</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="eu-projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">EU Projects</span>
+            <h2>Digital communication για ευρωπαϊκά έργα.</h2>
+          </div>
+          <p>
+            Ειδική ενότητα για Horizon Europe, Erasmus+, Interreg και έργα καινοτομίας, ώστε η σελίδα να συνδέει το web design με dissemination, reporting και stakeholder communication.
+          </p>
+        </div>
+
+        <div class="eu-layout">
+          <article class="dark-panel interactive-card reveal">
+            <h3>Websites για projects που χρειάζονται καθαρή διάχυση.</h3>
+            <p>Αρχιτεκτονική πληροφορίας, σελίδες αποτελεσμάτων, blog/news, materials, responsive design, GDPR-ready φόρμες και δομή που υποστηρίζει την επικοινωνία του έργου.</p>
+            <ul class="check-list">
+              <li>Project websites με καθαρή δομή και εύκολη ενημέρωση.</li>
+              <li>News, deliverables, partners και communication materials.</li>
+              <li>SEO/GEO δομή για καλύτερη ανακάλυψη του περιεχομένου.</li>
+            </ul>
+          </article>
+          <article class="dark-panel interactive-card reveal" style="--delay: 140ms">
+            <h3>From content to visibility.</h3>
+            <p>Η Pigiota314 μπορεί να παρουσιάζεται ως συνεργάτης που δεν παραδίδει μόνο site, αλλά βοηθάει στη συνολική ψηφιακή παρουσία: περιεχόμενο, social posts, newsletters, SEO και reporting.</p>
+            <div class="pill-list">
+              <span class="pill">Dissemination</span>
+              <span class="pill">Project websites</span>
+              <span class="pill">Newsletters</span>
+              <span class="pill">Social media</span>
+              <span class="pill">Reports</span>
+            </div>
+            <div style="margin-top: 26px">
+              <a class="btn btn-primary" href="#contact">Συζήτηση για EU project</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Selected Work</span>
+            <h2>Έργα με διαφορετικές ανάγκες, κοινή στρατηγική.</h2>
+          </div>
+          <p>
+            Το portfolio καλό είναι να εμφανίζεται σαν premium case-study grid, όχι απλή λίστα έργων. Κάθε κάρτα πρέπει να έχει κλάδο, υπηρεσίες και μικρό αποτέλεσμα.
+          </p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card reveal" style="--delay: 0ms">
+            <span class="tag">Website • Social • Marketing</span>
+            <h3>Level Up Education</h3>
+            <p>Εκπαιδευτικό brand με website, περιεχόμενο, social media και digital παρουσία.</p>
+            <a class="card-link" href="#contact">Case study <span>→</span></a>
+          </article>
+          <article class="project-card reveal" style="--delay: 90ms">
+            <span class="tag">E-shop • Streetwear</span>
+            <h3>Blackjack Streetwear</h3>
+            <p>Σύγχρονη e-commerce εμπειρία για fashion brand με καθαρή προϊοντική παρουσίαση.</p>
+            <a class="card-link" href="#contact">Case study <span>→</span></a>
+          </article>
+          <article class="project-card reveal" style="--delay: 180ms">
+            <span class="tag">Web Application</span>
+            <h3>Project4You</h3>
+            <p>CMS web application για ψηφιακά προσκλητήρια και δημιουργία ιστοσελίδων.</p>
+            <a class="card-link" href="#contact">Case study <span>→</span></a>
+          </article>
+          <article class="project-card reveal" style="--delay: 0ms">
+            <span class="tag">Booking SaaS</span>
+            <h3>Saloon</h3>
+            <p>Online ραντεβού και dashboard για επιχειρήσεις ομορφιάς.</p>
+            <a class="card-link" href="#contact">Case study <span>→</span></a>
+          </article>
+          <article class="project-card reveal" style="--delay: 90ms">
+            <span class="tag">Website</span>
+            <h3>Alexandra Apartment</h3>
+            <p>Καθαρή online παρουσία για τουριστικό κατάλυμα με έμφαση στην εικόνα.</p>
+            <a class="card-link" href="#contact">Case study <span>→</span></a>
+          </article>
+          <article class="project-card reveal" style="--delay: 180ms">
+            <span class="tag">Website • Local SEO</span>
+            <h3>Logotherapia Xanthi</h3>
+            <p>Digital παρουσία για επαγγελματική υπηρεσία με τοπική στόχευση.</p>
+            <a class="card-link" href="#contact">Case study <span>→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Process</span>
+            <h2>Μια καθαρή διαδικασία από ιδέα μέχρι launch.</h2>
+          </div>
+          <p>
+            Το redesign πρέπει να εμπνέει εμπιστοσύνη. Η διαδικασία βοηθάει τον επισκέπτη να καταλάβει πώς ξεκινάει μια συνεργασία και μειώνει την αβεβαιότητα.
+          </p>
+        </div>
+
+        <div class="process">
+          <article class="process-step interactive-card reveal" style="--delay: 0ms">
+            <b>01</b>
+            <h3>Discovery</h3>
+            <p>Καταγράφουμε στόχους, κοινό, ανταγωνισμό, υλικό και βασικές ανάγκες της επιχείρησης.</p>
+          </article>
+          <article class="process-step interactive-card reveal" style="--delay: 120ms">
+            <b>02</b>
+            <h3>Design & Build</h3>
+            <p>Σχεδιάζουμε UI, δομή περιεχομένου και υλοποιούμε την τεχνική λύση με responsive εμπειρία.</p>
+          </article>
+          <article class="process-step interactive-card reveal" style="--delay: 240ms">
+            <b>03</b>
+            <h3>Launch & Growth</h3>
+            <p>Παραδίδουμε, μετράμε, βελτιώνουμε και υποστηρίζουμε την ανάπτυξη μετά το launch.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="cta-section">
+      <div class="container">
+        <div class="cta-box reveal">
+          <span class="kicker">Let’s build</span>
+          <h2>Θες η επιχείρησή σου να δείχνει πιο σοβαρή, πιο σύγχρονη και πιο έτοιμη για ανάπτυξη;</h2>
+          <p>
+            Στείλε μας λίγα λόγια για το project σου και θα σου προτείνουμε την πιο σωστή ψηφιακή λύση: website, marketing, branding ή custom εφαρμογή.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://pigiota314.gr/contact/">Επικοινώνησε μαζί μας →</a>
+            <a class="btn btn-secondary" href="https://pigiota314.gr/portfolio/">Δες portfolio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2026 Pigiota314 Agency. Dark UX/UI redesign concept.</div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#products">Applications</a>
+        <a href="#eu-projects">EU Projects</a>
+        <a href="#portfolio">Portfolio</a>
+      </div>
+    </div>
+  </footer>
+
+  <a class="mobile-sticky-cta" href="#contact">Ζήτησε πρόταση →</a>
+
+  <script>
+    const nav = document.querySelector('[data-nav]');
+    const progressBar = document.querySelector('.progress-bar');
+    const cursorGlow = document.querySelector('.cursor-glow');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const sectionLinks = [...document.querySelectorAll('.nav-links a')];
+    const sections = sectionLinks
+      .map(link => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const updateScrollUI = () => {
+      const scrolled = window.scrollY > 20;
+      nav.classList.toggle('is-scrolled', scrolled);
+
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      progressBar.style.transform = `scaleX(${progress})`;
+
+      let activeId = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 120;
+        if (window.scrollY >= top) activeId = section.id;
+      });
+
+      sectionLinks.forEach(link => {
+        link.classList.toggle('is-active', link.getAttribute('href') === `#${activeId}`);
+      });
+    };
+
+    updateScrollUI();
+    window.addEventListener('scroll', updateScrollUI, { passive: true });
+
+    menuToggle?.addEventListener('click', () => {
+      const isOpen = menuToggle.classList.toggle('is-open');
+      navLinks.classList.toggle('is-open', isOpen);
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    sectionLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle?.classList.remove('is-open');
+        navLinks?.classList.remove('is-open');
+        menuToggle?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -70px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = Number(el.dataset.count);
+        let current = 0;
+        const duration = 900;
+        const start = performance.now();
+
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          current = Math.floor(progress * target);
+          el.textContent = `${current}+`;
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = `${target}+`;
+        };
+
+        requestAnimationFrame(tick);
+        countObserver.unobserve(el);
+      });
+    }, { threshold: .7 });
+
+    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+    document.querySelectorAll('.interactive-card').forEach(card => {
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mx', `${x}%`);
+        card.style.setProperty('--my', `${y}%`);
+      });
+    });
+
+    const heroTilt = document.querySelector('[data-tilt]');
+    heroTilt?.addEventListener('pointermove', (event) => {
+      const rect = heroTilt.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const rotateY = ((x / rect.width) - 0.5) * 8;
+      const rotateX = ((y / rect.height) - 0.5) * -8;
+      heroTilt.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    heroTilt?.addEventListener('pointerleave', () => {
+      heroTilt.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+    });
+
+    window.addEventListener('pointermove', (event) => {
+      if (!cursorGlow) return;
+      cursorGlow.style.left = `${event.clientX}px`;
+      cursorGlow.style.top = `${event.clientY}px`;
+    }, { passive: true });
+  </script>
+</body>
+</html>
